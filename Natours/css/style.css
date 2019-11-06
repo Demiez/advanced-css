@@ -53,12 +53,14 @@ body {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .heading-primary {
     color: #fff;
     text-transform: uppercase;
     backface-visibility: hidden;
+    margin-bottom: 60px;
 }
 
 .heading-primary-main {
@@ -121,4 +123,75 @@ body {
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+@keyframes moveInButton {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s; /* has to be on initial state */
+    position: relative;
+}
+
+.btn:hover { /* with hover should look like it is upper to the page */
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,.2);
+    /* box-shadow: X-direction shadow, Y-direction shadow, blur, color with transperency value */
+}
+
+.btn:active { /* when button is clicked, should look like it is closer to the page */
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
+}
+
+.btn::after {
+    content: "";
+    display: inline-block; /* should be exactly the same as parent element, because pseudoelement is treated like a child of button */
+    height: 100%; /* 100% of the height of the button its parent element */
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s; /* initial state of the pseudoelement */
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+/*when we hover the button we want some styles for the button's pseudoelement */
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6); /* scale function increases the element, for ex. scale(2) doubles the button */
+    opacity: 0; /* with transition .4s it should look like pseudoelement fades */
+}
+
+.btn-animated { /* adding one more class to the button in order to animate the specific button */
+    /* animation-name: moveInButton;
+    animation-duration: 1s;
+    animation-timing-function: ease-out; */
+    /* animation-delay: 4s; */
+    animation: moveInButton 1s ease-out .75s;
+    animation-fill-mode: backwards; /* The animation-fill-mode property specifies a style for the element when the animation is not playing (before it starts/backwards, after it ends/forwards, or both/both). */
 }
